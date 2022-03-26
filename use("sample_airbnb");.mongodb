@@ -1,0 +1,21 @@
+//use("sample_airbnb");
+
+//db.listingsAndReviews.find({accommodates:{$gt:6},"reviews":{$size:50}})
+
+
+// db.listingsAndReviews.find({property_type:"House", amenities:{$all:["Changing table"]}},
+// {_id:0,name:1})
+
+use("sample_training");
+
+//db.companies.find({offices:{$elemMatch:{city:"Seattle"}}});
+
+//db.trips.find({"start station location":{$elemMatch:{"coordinates":{$lt: -74}}}}).count();
+
+//db.inspections.find({"address.city":"New York"});
+
+db.listingsAndReviews.findOne();
+
+//db.movies.aggregate([{$match:{$and:[{"imdb.rating":{$gte:7}},{$or:[{"genres":{$ne:"Crime"}},{"genres":{$ne:"Horror"}}]},{$or:[{"rated":"G"},{"rated":"PG"}]},{"languages":{$all:["English","Japanese"]}}]}}]).pretty()
+
+//mongo "mongodb://cluster0-shard-00-00-jxeqq.mongodb.net:27017,cluster0-shard-00-01-jxeqq.mongodb.net:27017,cluster0-shard-00-02-jxeqq.mongodb.net:27017/aggregations?replicaSet=Cluster0-shard-0" --authenticationDatabase admin --ssl -u m121 -p aggregations --norc

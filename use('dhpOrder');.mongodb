@@ -1,0 +1,21 @@
+use('dhpOrder');
+
+db.order.aggregate([
+  {
+    "$search":{
+      "index": "order_index",
+      "text":{
+        "query": "ACN",
+        "path" : ["orderNumber", "patientInfo.fname",
+         "patientInfo.lname", "patientInfo.postcode",
+         "state.orderSubState"
+        ],
+        "fuzzy":{
+          maxEdits: 2
+        },
+       
+      }
+    },
+   
+  }
+])
