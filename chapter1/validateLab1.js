@@ -22,4 +22,13 @@ var validateLab1 = pipeline => {
   }
 }
 
-var pipeline = [{$match:{$and:[{"imdb.rating":{$gte:7}},{$or:[{"genres":{$ne:"Crime"}},{"genres":{$ne:"Horror"}}]},{$or:[{"rated":"G"},{"rated":"PG"}]},{"languages":{$all:["English","Japanese"]}}]}}]
+var pipeline = [
+    {
+    $match: {
+       "imdb.rating": { $gte: 7 },
+        genres: { $nin: [ "Crime", "Horror" ] } ,
+        rated: { $in: ["PG", "G" ] },
+        languages: { $all: [ "English", "Japanese" ] }
+       }
+     }
+   ]
