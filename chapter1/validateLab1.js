@@ -30,5 +30,28 @@ var pipeline = [
         rated: { $in: ["PG", "G" ] },
         languages: { $all: [ "English", "Japanese" ] }
        }
+     },
+     {
+       $project:{
+         _id: 0,
+         title: 1,
+         rated: "$imdb.rating"
+       }
      }
    ]
+
+   db.movies.aggregate([{$project:{
+     titleLength: {$size: {$split:["$title"," "]}}
+   }},{
+     $match:{
+      titleLength:{$eq: 1}
+     }
+   }]).itcount()
+
+   db.movies.aggregate([{$project:{
+     directors: 1,
+     cast: 1,
+     writers: 1,
+     commonToBoth: { $setIntersection: [ "$cast", "$directors","$writers" ] }, 
+     _id: 0 
+  }}]).itcount()
