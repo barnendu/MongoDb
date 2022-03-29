@@ -50,3 +50,56 @@ db.air_alliances.aggregate([
       }
     }
 ])
+
+db.movies.aggregate([
+    {
+        $match:{
+            metacritic: {$gt : 0},
+            "imdb.rating": {$gt : 0}
+        }
+    },
+    {
+        $facet:{
+            "top_metacritic":[
+                {
+                    $sort:{
+                        "metacritic": -1
+                    }
+                },
+                {
+                    $limit: 10
+                },
+                {
+                    $project:{
+                        _id : 0, 
+                        title: 1
+                    }
+                }
+            ],
+            "top_imdb":[
+                {
+                    $sort:{
+                        "imdb.rating": -1
+                    }
+                },
+                {
+                    $limit: 10
+                },
+                {
+                    $project:{
+                        _id : 0, 
+                        title: 1
+                    }
+                }
+            ]
+        }
+    },
+    {
+        $project:{
+            "movie_in_both": {
+                $setIntersection: ["$top_metacritic", "$top_imdb"]
+            }
+        }
+    }
+])
+
